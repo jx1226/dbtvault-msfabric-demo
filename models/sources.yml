@@ -1,0 +1,58 @@
+version: 2
+sources:
+  - name: ecom
+    database: fabricdemolh
+    schema: ecom
+    description: E-commerce data
+
+    tables:
+      - name: orders
+        description: One record per order
+        loaded_at_field: _etl_loaded_at
+        freshness:
+          warn_after:
+            count: 12
+            period: hour
+          error_after:
+            count: 24
+            period: hour
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+          - name: status
+            description: "{{ doc('order_status') }}"
+            tests:
+              - accepted_values:
+                  values:
+                    - placed
+                    - shipped
+                    - completed
+                    - return_pending
+                    - returned
+          - name: user_id
+            description: Foreign key to customers
+            tests:
+              - not_null
+              - relationships:
+                  to: source('ecom', 'customers')
+                  field: id
+
+      - name: customers
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+              
+      - name: payments
+        columns:
+          - name: id
+            tests:
+              - not_null
+              - unique
+          - name: order_id
+            description: Foreign key to jaffle_shop orders
+          - name: amount
+            description: Amount in US cents
