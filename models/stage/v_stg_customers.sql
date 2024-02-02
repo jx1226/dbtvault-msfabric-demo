@@ -1,12 +1,7 @@
 {%- set yaml_metadata -%}
-/* source model from raw_stage */
 source_model: "raw_customers"
-
-/* derived columns from raw_stage */
 derived_columns:
   RECORD_SOURCE: "ECOM_SYSTEM"
-
-/* create hashed keys from raw_stage */
 hashed_columns:
   CUSTOMER_HK: 
     - "CUSTOMER_ID"

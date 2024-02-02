@@ -1,0 +1,43 @@
+version: 2
+models:
+  - name: raw_customers
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+
+  - name: raw_orders
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+
+      - name: status
+        tests:
+          - accepted_values:
+              values:
+                - placed
+                - shipped
+                - completed
+                - return_pending
+                - returned
+
+      - name: customer_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('raw_customers')
+              field: customer_id
+
+  - name: raw_payments
+    columns:
+      - name: payment_id
+        tests:
+          - not_null
+          - unique
+
+      - name: amount
+        description: Amount in US cents
+

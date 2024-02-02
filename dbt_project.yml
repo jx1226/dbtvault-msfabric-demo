@@ -45,3 +45,6 @@ clean-targets:
     - "target"
     - "dbt_packages"
 
+dispatch:
+  - macro_namespace:  dbtvault-msfabric-demo
+    search_order: ['dbtvault-msfabric-demo', 'automate_dv']

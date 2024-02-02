@@ -1,12 +1,7 @@
 {%- set yaml_metadata -%}
-/* source model from raw_stage */
 source_model: "raw_orders"
-
-/* derived columns from raw_stage */
 derived_columns:
   RECORD_SOURCE: "ECOM_SYSTEM"
-
-/* create hashed keys from raw_stage */
 hashed_columns:
   ORDER_HK: 
     - "ORDER_ID"
