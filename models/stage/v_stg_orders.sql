@@ -1,15 +1,18 @@
 {%- set yaml_metadata -%}
 source_model: "raw_orders"
 derived_columns:
-  RECORD_SOURCE: "ECOM_SYSTEM"
+  RECORD_SOURCE: "!ECOM_SYSTEM"
+  LOAD_DATETIME: CONVERT(DATETIME2, '{{ run_started_at.strftime("%Y-%m-%d %H:%M:%S.%f") }}')
 hashed_columns:
-  ORDER_HK: 
-    - "ORDER_ID"
+  ORDER_HK: "order_id"
+  LINK_CUSTOMER_ORDER_HK:
+    - 'order_id'
+    - 'customer_id'
   ORDER_HASHDIFF:
     is_hashdiff: true
     columns:
-      - "ORDER_DATE"
-      - "STATUS"
+      - "order_date"
+      - "status"
 {%- endset -%}
 
 {% set metadata_dict = fromyaml(yaml_metadata) %}
@@ -20,15 +23,8 @@ hashed_columns:
 
 {% set hashed_columns = metadata_dict['hashed_columns'] %}
 
-
-WITH staging AS (
 {{ automate_dv.stage(include_source_columns=true,
                   source_model=source_model,
                   derived_columns=derived_columns,
                   hashed_columns=hashed_columns,
                   ranked_columns=none) }}
-)
-
-SELECT *, 
-       ('{{ var('load_date') }}')::DATE AS LOAD_DATE
-FROM staging

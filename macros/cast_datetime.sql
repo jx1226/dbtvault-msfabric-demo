@@ -1,10 +1,7 @@
 {%- macro default__cast_datetime(column_str, as_string=false, alias=none, date_type=none) -%}
 
-    {%- if as_string -%}
-        {%- set column_str -%} '{{ column_str }}' {%- endset -%}
-    {%- endif -%}
+    CONVERT(DATETIME2, {{ column_str }})
 
-    {%- set date_type = date_type | lower -%}
+    {%- if alias %} AS {{ alias }} {%- endif %}
 
-    {{ return(adapter.dispatch('cast_datetime', 'automate_dv')(column_str=column_str, as_string=as_string, alias=alias, date_type=date_type)) }}
 {%- endmacro -%}
