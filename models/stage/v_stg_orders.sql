@@ -5,6 +5,7 @@ derived_columns:
   LOAD_DATETIME: CONVERT(DATETIME2, '{{ run_started_at.strftime("%Y-%m-%d %H:%M:%S.%f") }}')
 hashed_columns:
   ORDER_HK: "order_id"
+  CUSTOMER_HK: "customer_id"
   LINK_CUSTOMER_ORDER_HK:
     - 'order_id'
     - 'customer_id'

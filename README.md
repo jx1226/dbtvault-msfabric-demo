@@ -49,3 +49,7 @@ $ dbt docs serve
 - Find [dbt events](https://events.getdbt.com) near you
 - Check out [the blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
 - Check out the [reference](https://docs.getdbt.com/reference/references-overview)
+
+
+### Limitation:
+- Currently, in Microsoft Fabric, only varbinary(n) is supported. The binary and varbinary(max) data types are not supported. So in dbt, usage of binary is only supported as view and not as table (https://learn.microsoft.com/en-us/sql/t-sql/data-types/binary-and-varbinary-transact-sql?view=sql-server-ver16#limitations)

@@ -1,9 +1,9 @@
 {%- set source_model = "v_stg_orders" -%}
-{%- set src_pk = "CUSTOMER_PK" -%}
-{%- set src_hashdiff = "CUSTOMER_NATION_HASHDIFF" -%}
-{%- set src_payload = ["CUSTOMER_NATION_NAME", "CUSTOMER_NATION_COMMENT"] -%}
-{%- set src_eff = "EFFECTIVE_FROM" -%}
-{%- set src_ldts = "LOAD_DATE" -%}
+{%- set src_pk = ["ORDER_HK", "LOAD_DATETIME"] -%}
+{%- set src_hashdiff = "ORDER_HASHDIFF" -%}
+{%- set src_payload = ["order_date", "status"] -%}
+{%- set src_eff = "LOAD_DATETIME" -%}
+{%- set src_ldts = "LOAD_DATETIME" -%}
 {%- set src_source = "RECORD_SOURCE" -%}
 
 {{ automate_dv.sat(src_pk=src_pk, src_hashdiff=src_hashdiff,

@@ -19,7 +19,9 @@ models:
 
     raw_vault:
       tags: ['raw_vault']
-      materialized: incremental
+      #materialized: table
+      #materialized: incremental
+      materialized: view
       hubs:
         tags:
           - 'hub'
@@ -29,9 +31,6 @@ models:
       sats:
         tags:
           - 'satellite'
-      t_links:
-        tags:
-          - 't_link'
 
 macro-paths:
   - macros
